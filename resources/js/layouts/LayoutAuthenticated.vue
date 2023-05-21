@@ -18,9 +18,7 @@ router.on("navigate", () => {
     isAsideLgActive.value = false;
 });
 
-onMounted(() => {
-    useMainStore().getCurrentUser();
-});
+useMainStore().getCurrentUser();
 
 //useMainStore().setUser({
 //    name: "John Doe",
