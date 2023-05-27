@@ -19,29 +19,49 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import UserCard from "@/components/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import { router } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toastification";
 
+const props = defineProps({
+    errors: {
+        type: Object,
+        default: null,
+    },
+    auth: {
+        type: Object,
+        default: null,
+    },
+});
+
+const toast = useToast();
 const mainStore = useMainStore();
 
-const profileForm = reactive({
+const profileForm = useForm({
     firstName: mainStore.firstName,
     middleName: mainStore.middleName,
     lastName: mainStore.lastName,
     email: mainStore.email,
 });
 
-const passwordForm = reactive({
+const passwordForm = useForm({
     password_current: "",
     password: "",
     password_confirmation: "",
 });
 
 const submitProfile = () => {
-    mainStore.updateCurrentUser(profileForm);
+    profileForm.patch("/profile", {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.success("Successfully update user profile");
+            mainStore.getCurrentUser();
+        },
+        onError: () => toast.error("Check inputs"),
+    });
 };
 
 const submitPass = () => {
-    mainStore.updatePassCurrentUser(passwordForm);
+    router.put("/password", form);
 };
 </script>
 
@@ -68,7 +88,11 @@ const submitPass = () => {
                         <FormFilePicker label="Upload" />
                     </FormField>
 
-                    <FormField label="Name" help="Required. Your name">
+                    <FormField
+                        label="Name"
+                        :help="errors.firstName ?? 'Required. Your name'"
+                        :isError="errors.firstName != null"
+                    >
                         <FormControl
                             v-model="profileForm.firstName"
                             :icon="mdiAccount"
@@ -77,7 +101,11 @@ const submitPass = () => {
                             autocomplete="firtName"
                         />
                     </FormField>
-                    <FormField label="Middle Name" help="Required. Your middlename">
+                    <FormField
+                        label="Middle Name"
+                        :help="errors.middleName ?? 'Required. Your middlename'"
+                        :isError="errors.middleName != null"
+                    >
                         <FormControl
                             v-model="profileForm.middleName"
                             :icon="mdiAccount"
@@ -86,7 +114,11 @@ const submitPass = () => {
                             autocomplete="middleName"
                         />
                     </FormField>
-                    <FormField label="Surname" help="Required. Your lastname">
+                    <FormField
+                        label="Surname"
+                        :help="errors.lastName ?? 'Required. Your lastname'"
+                        :isError="errors.lastName != null"
+                    >
                         <FormControl
                             v-model="profileForm.lastName"
                             :icon="mdiAccount"
@@ -95,7 +127,11 @@ const submitPass = () => {
                             autocomplete="lastName"
                         />
                     </FormField>
-                    <FormField label="E-mail" help="Required. Your e-mail">
+                    <FormField
+                        label="E-mail"
+                        :help="errors.email ?? 'Required. Your e.mail'"
+                        :isError="errors.email != null"
+                    >
                         <FormControl
                             v-model="profileForm.email"
                             :icon="mdiMail"
@@ -113,7 +149,7 @@ const submitPass = () => {
                                 type="submit"
                                 label="Submit"
                             />
-                            <BaseButton color="info" label="Options" outline />
+                            <!--<BaseButton color="info" label="Options" outline />-->
                         </BaseButtons>
                     </template>
                 </CardBox>

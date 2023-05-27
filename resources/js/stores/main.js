@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { usePage, router } from "@inertiajs/vue3";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export const useMainStore = defineStore("main", {
     state: () => ({
@@ -21,12 +23,18 @@ export const useMainStore = defineStore("main", {
         history: [],
     }),
     getters: {
-        getFullName(state){
+        getFullName(state) {
             if (!state.middleName == null) {
-                return state.firstName + ' ' + state.middleName + ' ' + state.lastName;
+                return (
+                    state.firstName +
+                    " " +
+                    state.middleName +
+                    " " +
+                    state.lastName
+                );
             }
-            return state.firstName + ' ' + state.lastName;
-        }
+            return state.firstName + " " + state.lastName;
+        },
     },
     actions: {
         setUser(payload) {
@@ -69,11 +77,11 @@ export const useMainStore = defineStore("main", {
             router.on("error", (errors) => {
                 console.log("error");
                 console.log(errors);
+                const allErrors = errors.detail.errors;
+                for (const el in allErrors) {
+                    toast.error(allErrors[el]);
+                }
             });
-        },
-
-        updatePassCurrentUser(form) {
-            router.put("/password", form);
         },
 
         fetch(sampleDataKey) {
