@@ -16,6 +16,20 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function show(Request $request): Response
+    {
+
+        var_dump('ffooo');
+        exit;
+        //return Inertia::render('Profile/Edit', [
+        //    'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+        //    'status' => session('status'),
+        //]);
+    }
+
+    /**
+     * Display the user's profile form.
+     */
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/Edit', [
@@ -28,6 +42,22 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile');
+    }
+
+    /**
+     * Update the user's profile information.
+     */
+    public function updateAvatar(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 

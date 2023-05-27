@@ -2,13 +2,16 @@
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import UserAvatar from "@/components/UserAvatar.vue";
+import { useMainStore } from "@/stores/main";
 
-const userName = computed(() => usePage().props.auth.user.name);
-const avatar = computed(() => usePage().props.auth.user.avatar);
+const mainStore = useMainStore();
+
+const fullName = computed(() => mainStore.getFullName);
+const avatar = computed(() => mainStore.avatar);
 </script>
 
 <template>
-    <UserAvatar :username="userName" :avatar="avatar" api="initials">
+    <UserAvatar :fullName="fullName" :avatar="avatar" api="initials">
         <slot />
     </UserAvatar>
 </template>

@@ -5,9 +5,13 @@ import { usePage, router } from "@inertiajs/vue3";
 export const useMainStore = defineStore("main", {
     state: () => ({
         /* User */
-        userName: null,
-        userEmail: null,
-        userAvatar: null,
+        firstName: null,
+        middleName: null,
+        lastName: null,
+        email: null,
+        avatar: null,
+        lastLogin: null,
+        intro: null,
 
         /* Field focus with ctrl+k (to register only once) */
         isFieldFocusRegistered: false,
@@ -16,26 +20,42 @@ export const useMainStore = defineStore("main", {
         clients: [],
         history: [],
     }),
+    getters: {
+        getFullName(state){
+            if (!state.middleName == null) {
+                return state.firstName + ' ' + state.middleName + ' ' + state.lastName;
+            }
+            return state.firstName + ' ' + state.lastName;
+        }
+    },
     actions: {
         setUser(payload) {
-            if (payload.name) {
-                this.userName = payload.name;
+            if (payload.firstName) {
+                this.firstName = payload.firstName;
+            }
+            if (payload.middleName) {
+                this.middleName = payload.middleName;
+            }
+            if (payload.lastName) {
+                this.lastName = payload.lastName;
             }
             if (payload.email) {
-                this.userEmail = payload.email;
+                this.email = payload.email;
             }
             if (payload.avatar) {
-                this.userAvatar = payload.avatar;
+                this.avatar = payload.avatar;
+            }
+            if (payload.lastLogin) {
+                this.lastLogin = payload.lastLogin;
+            }
+            if (payload.intro) {
+                this.intro = payload.intro;
             }
         },
 
         getCurrentUser() {
             const user = usePage().props.auth.user;
-            this.setUser({
-                name: user.name,
-                email: user.email,
-                avatar: user.avatar,
-            });
+            this.setUser(user);
         },
 
         updateCurrentUser(form) {

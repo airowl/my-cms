@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_meta', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('roles', function (Blueprint $table) {
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 
@@ -22,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_meta');
+        Schema::table('roles', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+            $table->dropColumn(['post_id']);
+        });
     }
 };

@@ -24,8 +24,10 @@ import { router } from "@inertiajs/vue3";
 const mainStore = useMainStore();
 
 const profileForm = reactive({
-    name: mainStore.userName,
-    email: mainStore.userEmail,
+    firstName: mainStore.firstName,
+    middleName: mainStore.middleName,
+    lastName: mainStore.lastName,
+    email: mainStore.email,
 });
 
 const passwordForm = reactive({
@@ -68,11 +70,29 @@ const submitPass = () => {
 
                     <FormField label="Name" help="Required. Your name">
                         <FormControl
-                            v-model="profileForm.name"
+                            v-model="profileForm.firstName"
                             :icon="mdiAccount"
-                            name="username"
+                            name="firtName"
                             required
-                            autocomplete="username"
+                            autocomplete="firtName"
+                        />
+                    </FormField>
+                    <FormField label="Middle Name" help="Required. Your middlename">
+                        <FormControl
+                            v-model="profileForm.middleName"
+                            :icon="mdiAccount"
+                            name="middleName"
+                            required
+                            autocomplete="middleName"
+                        />
+                    </FormField>
+                    <FormField label="Surname" help="Required. Your lastname">
+                        <FormControl
+                            v-model="profileForm.lastName"
+                            :icon="mdiAccount"
+                            name="lastName"
+                            required
+                            autocomplete="lastName"
                         />
                     </FormField>
                     <FormField label="E-mail" help="Required. Your e-mail">
