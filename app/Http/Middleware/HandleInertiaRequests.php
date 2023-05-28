@@ -32,11 +32,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
-        $urlAvatar = env('APP_URL') . Storage::url($user->avatar);
-        $user['avatar'] = $urlAvatar;
+        $passDataUser = $user;
+        if (isset($user->avatar)) {
+            $urlAvatar = env('APP_URL') . Storage::url($user->avatar);
+            $passDataUser['avatar'] = $urlAvatar ?? $user->avatar;
+        }
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $user,
+                'user' => $passDataUser,
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

@@ -63,7 +63,14 @@ const submitProfile = () => {
 };
 
 const submitPass = () => {
-    router.put("/password", form);
+    passwordForm.put("/password", {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.success("Successfully update user password");
+            mainStore.getCurrentUser();
+        },
+        onError: () => toast.error("Check inputs"),
+    });
 };
 </script>
 
@@ -166,7 +173,11 @@ const submitPass = () => {
                 <CardBox is-form @submit.prevent="submitPass">
                     <FormField
                         label="Current password"
-                        help="Required. Your current password"
+                        :help="
+                            errors.password_current ??
+                            'Required. Your current password'
+                        "
+                        :isError="errors.password_current != null"
                     >
                         <FormControl
                             v-model="passwordForm.password_current"
@@ -182,7 +193,8 @@ const submitPass = () => {
 
                     <FormField
                         label="New password"
-                        help="Required. New password"
+                        :help="errors.password ?? 'Required. New password'"
+                        :isError="errors.password != null"
                     >
                         <FormControl
                             v-model="passwordForm.password"
@@ -196,7 +208,11 @@ const submitPass = () => {
 
                     <FormField
                         label="Confirm password"
-                        help="Required. New password one more time"
+                        :help="
+                            errors.password_confirmation ??
+                            'Required. New password one more time'
+                        "
+                        :isError="errors.password_confirmation != null"
                     >
                         <FormControl
                             v-model="passwordForm.password_confirmation"
