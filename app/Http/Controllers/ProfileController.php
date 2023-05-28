@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class ProfileController extends Controller
 {
@@ -43,13 +46,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
+        $user = User::find($request->user()->id);
+        $currentRequest = (object)$request->validated();
+        //var_dump($currentRequest->firstName);
+        //exit;
+        $user->firstName = $currentRequest->firstName;
+        $user->middleName = $currentRequest->middleName;
+        $user->lastName = $currentRequest->lastName;
+        $user->email = $currentRequest->email;
+
+        $file = $request->avatar;
+        if (isset($file)) {
+            $nameFile = $user->firstName . date('Yms') . Str::random(5) . '.' . $file->extension();
+            //$path = Storage::putFileAs(
+            //    'avatars',
+            //    $request->file('avatar'),
+            //    $nameFile
+            //);
+            $path = $file->storeAs(
+                'public/avatars',
+                $nameFile
+            );
+            if ($path) {
+                $user->avatar = $path;
+            }
+        }
+        //$user->firstName = $current
+        //$request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        $success = $request->user()->save();
+        $success = $user->save();
 
         return to_route('profile');
     }

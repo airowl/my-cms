@@ -41,9 +41,9 @@ Route::get('/responsive', function () {
     return Inertia::render('ResponsiveView');
 })->middleware(['auth', 'verified'])->name('responsive');
 
-Route::get('/styles', function () {
-    return Inertia::render('StyleView');
-})->middleware(['auth', 'verified'])->name('styles');
+//Route::get('/styles', function () {
+//    return Inertia::render('StyleView');
+//})->middleware(['auth', 'verified'])->name('styles');
 
 Route::get('/forms', function () {
     return Inertia::render('FormsView');

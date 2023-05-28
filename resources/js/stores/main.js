@@ -63,6 +63,7 @@ export const useMainStore = defineStore("main", {
 
         getCurrentUser() {
             const user = usePage().props.auth.user;
+            console.log(user);
             this.setUser(user);
         },
 

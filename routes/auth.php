@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('test', [ProfileController::class, 'show']);

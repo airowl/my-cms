@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -20,6 +21,7 @@ class ProfileUpdateRequest extends FormRequest
             'middleName' => ['string', 'max:255'],
             'lastName' => ['string', 'max:255'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'avatar' => ['nullable', File::image()]
         ];
     }
 

@@ -39,11 +39,11 @@ export default [
         label: "Responsive",
         icon: mdiResponsive,
     },
-    {
-        route: "styles",
-        label: "Styles",
-        icon: mdiPalette,
-    },
+    //{
+    //    route: "styles",
+    //    label: "Styles",
+    //    icon: mdiPalette,
+    //},
     {
         route: "profile",
         label: "Profile",

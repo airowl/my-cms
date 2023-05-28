@@ -18,7 +18,7 @@ const props = defineProps({
 
 const avatar = computed(
     () =>
-        // add if avatar link exist
+        props.avatar ??
         `https://avatars.dicebear.com/api/${props.api}/${props.fullName.replace(
             /[^a-z0-9]+/i,
             "-"

@@ -41,6 +41,7 @@ const profileForm = useForm({
     middleName: mainStore.middleName,
     lastName: mainStore.lastName,
     email: mainStore.email,
+    avatar: null,
 });
 
 const passwordForm = useForm({
@@ -50,7 +51,8 @@ const passwordForm = useForm({
 });
 
 const submitProfile = () => {
-    profileForm.patch("/profile", {
+    console.log(profileForm);
+    profileForm.post("/profile", {
         preserveScroll: true,
         onSuccess: () => {
             toast.success("Successfully update user profile");
@@ -83,9 +85,16 @@ const submitPass = () => {
             <UserCard class="mb-6" />
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <CardBox is-form @submit.prevent="submitProfile">
+                <CardBox
+                    is-form
+                    @submit.prevent="submitProfile"
+                    enctype="multipart/form-data"
+                >
                     <FormField label="Avatar" help="Max 500kb">
-                        <FormFilePicker label="Upload" />
+                        <FormFilePicker
+                            label="Upload"
+                            v-model:modelValue="profileForm.avatar"
+                        />
                     </FormField>
 
                     <FormField
