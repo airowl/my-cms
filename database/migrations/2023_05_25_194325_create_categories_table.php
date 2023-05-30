@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('parentId');
             $table->string('title');
-            $table->string('metaTitle');
-            $table->string('slug');
-            $table->text('content');
+            $table->string('metaTitle')->nullable(true);
+            $table->string('slug')->nullable(true);
+            $table->text('content')->nullable(true);
             $table->timestamps();
         });
     }

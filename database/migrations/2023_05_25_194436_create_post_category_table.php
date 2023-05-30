@@ -24,9 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('post_category', function (Blueprint $table) {
-            $table->dropForeign(['post_id', 'tag_id']);
-            $table->dropColumn(['post_id', 'tag_id']);
-        });
+        //Schema::table('post_category', function (Blueprint $table) {
+        //    $table->dropForeign(['post_id', 'category_id']);
+        //    $table->dropColumn('post_id');
+        //    $table->dropColumn('category_id');
+        //});
+        Schema::dropIfExists('post_category');
     }
 };

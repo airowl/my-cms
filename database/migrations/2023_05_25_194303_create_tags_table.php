@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('metaTitle');
-            $table->string('slug');
-            $table->text('content');
+            $table->string('metaTitle')->nullable(true);
+            $table->string('slug')->nullable(true);
+            $table->text('content')->nullable(true);
             $table->timestamps();
         });
     }

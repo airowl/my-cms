@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts');
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('role_id')->nullable(true);
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
@@ -22,9 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->dropForeign(['post_id']);
-            $table->dropColumn(['post_id']);
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+            $table->dropColumn(['role_id']);
         });
     }
 };

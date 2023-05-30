@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('post_meta', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('post_id')->nullable(true);
             $table->foreign('post_id')->references('id')->on('posts');
-            $table->string('key');
-            $table->text('content');
+            $table->string('key')->nullable(true);
+            $table->text('content')->nullable(true);
             $table->timestamps();
         });
     }

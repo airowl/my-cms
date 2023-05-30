@@ -31,7 +31,7 @@ Route::get('/profile', function () {
 
 Route::get('/tables', function () {
     return Inertia::render('TablesView');
-})->middleware(['auth', 'verified'])->name('tables');
+})->middleware(['auth', 'checkAccessLv:100'])->name('tables');
 
 Route::get('/ui', function () {
     return Inertia::render('UiView');

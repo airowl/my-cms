@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('parentId');
+            $table->bigInteger('parentId')->nullable(true);
             $table->string('title');
-            $table->string('metaTitle');
-            $table->string('slug');
-            $table->tinyText('summury');
-            $table->tinyInteger('published');
-            $table->dateTime('publishedAt');
-            $table->text('content');
+            $table->string('metaTitle')->nullable(true);
+            $table->string('slug')->nullable(true);
+            $table->tinyText('summury')->nullable(true);
+            $table->tinyInteger('published')->nullable(true);
+            $table->dateTime('publishedAt')->nullable(true);
+            $table->text('content')->nullable(true);
             $table->timestamps();
         });
     }
