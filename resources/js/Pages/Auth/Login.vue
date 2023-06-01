@@ -13,6 +13,7 @@ import BaseButtons from "@/components/BaseButtons.vue";
 import FormValidationErrors from "@/components/FormValidationErrors.vue";
 import NotificationBarInCard from "@/components/NotificationBarInCard.vue";
 import BaseLevel from "@/components/BaseLevel.vue";
+import { useMainStore } from "@/stores/main";
 
 const props = defineProps({
     canResetPassword: Boolean,
@@ -22,6 +23,8 @@ const props = defineProps({
     },
 });
 
+const mainStore = useMainStore();
+
 const form = useForm({
     email: "",
     password: "",
@@ -29,6 +32,7 @@ const form = useForm({
 });
 
 const submit = () => {
+    mainStore.resetUser();
     form.transform((data) => ({
         ...data,
         remember: form.remember && form.remember.length ? "on" : "",
