@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocalTranslationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -56,5 +57,7 @@ Route::get('/forms', function () {
 Route::get('/error', function () {
     return Inertia::render('ErrorView');
 })->middleware(['auth', 'verified'])->name('error');
+
+Route::resource('local-translations', LocalTranslationController::class);
 
 require __DIR__ . '/auth.php';

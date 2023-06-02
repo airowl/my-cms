@@ -64,6 +64,8 @@ class DatabaseSeeder extends Seeder
             DB::table('roles')->insert([
                 'role' => $value['role'],
                 'accessLevel' => $value['accessLevel'],
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
 
@@ -81,6 +83,33 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1
         ]);
 
+        $translations = array(
+            [
+                'languageCode' => 'it',
+                'translation' => 'ciao',
+            ],
+            [
+                'languageCode' => 'en',
+                'translation' => 'hello',
+            ],
+            [
+                'languageCode' => 'en',
+                'translation' => 'how are you?',
+            ],
+            [
+                'languageCode' => 'it',
+                'translation' => 'come stai?',
+            ],
+        );
+
+        foreach ($translations as $key => $value) {
+            DB::table('local_translations')->insert([
+                'languageCode' => $value['languageCode'],
+                'translation' => $value['translation'],
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
         //for ($i=0; $i < 20; $i++) {
         //    DB::table('posts')->insert([

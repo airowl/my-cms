@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->text('avatar')->nullable(true);
             $table->enum('status', ['inactive', 'active']);
-            $table->date('registeredAt')->nullable(true);
-            $table->date('lastLogin')->nullable(true);
+            $table->timestamp('registeredAt')->nullable(true);
+            $table->timestamp('lastLogin')->nullable(true);
             $table->text('intro')->nullable(true);
             $table->string('language')->nullable(true);
             $table->timestamp('email_verified_at')->nullable();
