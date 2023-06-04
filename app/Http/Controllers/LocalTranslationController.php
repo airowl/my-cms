@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\LocalTranslation;
 use App\Http\Requests\StoreLocalTranslationRequest;
 use App\Http\Requests\UpdateLocalTranslationRequest;
-use App\Models\LocalTranslation;
+use App\Models\Language;
 
 class LocalTranslationController extends Controller
 {
@@ -13,11 +16,16 @@ class LocalTranslationController extends Controller
      */
     public function index()
     {
-        $datas = LocalTranslation::all();
-        var_dump($datas->toArray());
-        exit;
-        // insert view inertia
-        return $datas;
+        $translations = LocalTranslation::all();
+        $datas = null;
+        foreach ($translations as $data) {
+            $datas[] = $data->getSummery();
+        }
+        $languages = Language::all();
+        return Inertia::render('TranslationsView', [
+            'listLanguages' => $datas,
+            'languages' => $languages
+        ]);
     }
 
     /**
@@ -33,7 +41,14 @@ class LocalTranslationController extends Controller
      */
     public function store(StoreLocalTranslationRequest $request)
     {
-        //
+        $currentRequest = (object)$request->validated();
+        $localTranslation = new LocalTranslation();
+        $localTranslation->translation = $currentRequest->translation;
+        $language = Language::where('languageCode', $currentRequest->languageCode)->get();
+        $localTranslation->local_language_id = $language[0]->id;
+        $localTranslation->save();
+
+        return to_route('translations');
     }
 
     /**
@@ -55,16 +70,23 @@ class LocalTranslationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLocalTranslationRequest $request, LocalTranslation $localTranslation)
+    public function update(UpdateLocalTranslationRequest $request)
     {
-        //
+        $currentRequest = (object)$request->validated();
+        $localTranslation = LocalTranslation::findOrFail($currentRequest->id);
+        $localTranslation->translation = $currentRequest->translation;
+        $localTranslation->save();
+
+        return to_route('translations');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LocalTranslation $localTranslation)
+    public function destroy($id)
     {
-        //
+        $localTranslation = LocalTranslation::findOrFail($id);
+        $success = $localTranslation->delete();
+        return to_route('translations');
     }
 }

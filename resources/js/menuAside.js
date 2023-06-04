@@ -20,6 +20,11 @@ export default [
         label: "Dashboard",
     },
     {
+        route: "translations",
+        label: "Translations",
+        icon: mdiTable,
+    },
+    {
         route: "tables",
         label: "Tables",
         icon: mdiTable,

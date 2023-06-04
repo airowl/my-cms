@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('local_translations', function (Blueprint $table) {
+        Schema::create('local_languages', function (Blueprint $table) {
             $table->id();
-            $table->text('translation');
+            $table->string('languageCode')->unique();
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('local_translations');
+        Schema::dropIfExists('local_languages');
     }
 };

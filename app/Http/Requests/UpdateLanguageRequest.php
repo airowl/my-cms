@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLocalTranslationRequest extends FormRequest
+class UpdateLanguageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,9 +22,7 @@ class UpdateLocalTranslationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['int', 'max:255'],
-            'languageCode' => ['string', 'max:255'],
-            'translation' => ['string', 'max:255'],
+            //
         ];
     }
 }

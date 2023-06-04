@@ -18,37 +18,48 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-Route::get('/', function () {
-    return Redirect::route('dashboard');
-})->middleware(['auth', 'verified']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return Redirect::route('dashboard');
+    });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('HomeView');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        return Inertia::render('HomeView');
+    })->name('dashboard');
 
-Route::get('/profile', function () {
-    return Inertia::render('ProfileView');
-})->middleware(['auth', 'verified'])->name('profile');
+    Route::get('/profile', function () {
+        return Inertia::render('ProfileView');
+    })->name('profile');
 
-Route::get('/tables', function () {
-    return Inertia::render('TablesView');
-})->middleware(['auth', 'checkAccessLv:100'])->name('tables');
+    Route::controller(LocalTranslationController::class)->group(function () {
+        Route::get('/translations', 'index')->name('translations');
+        Route::put('/translations', 'update')->name('translations.update');
+        Route::post('/translations', 'store')->name('translations.create');
+        Route::delete('/translations/{translation}', 'destroy');
+    });
 
-Route::get('/ui', function () {
-    return Inertia::render('UiView');
-})->middleware(['auth', 'verified'])->name('ui');
+    //Route::resource('/translations', LocalTranslationController::class)->name('index', 'translations');
 
-Route::get('/responsive', function () {
-    return Inertia::render('ResponsiveView');
-})->middleware(['auth', 'verified'])->name('responsive');
+    Route::get('/tables', function () {
+        return Inertia::render('TablesView');
+    })->middleware(['auth', 'checkAccessLv:100'])->name('tables');
 
-//Route::get('/styles', function () {
-//    return Inertia::render('StyleView');
-//})->middleware(['auth', 'verified'])->name('styles');
+    Route::get('/ui', function () {
+        return Inertia::render('UiView');
+    })->name('ui');
 
-Route::get('/forms', function () {
-    return Inertia::render('FormsView');
-})->middleware(['auth', 'verified'])->name('forms');
+    Route::get('/responsive', function () {
+        return Inertia::render('ResponsiveView');
+    })->name('responsive');
+
+    //Route::get('/styles', function () {
+    //    return Inertia::render('StyleView');
+    //})->name('styles');
+
+    Route::get('/forms', function () {
+        return Inertia::render('FormsView');
+    })->name('forms');
+});
 
 //Route::get('/login', function () {
 //    return Inertia::render('LoginView');
@@ -58,6 +69,5 @@ Route::get('/error', function () {
     return Inertia::render('ErrorView');
 })->middleware(['auth', 'verified'])->name('error');
 
-Route::resource('local-translations', LocalTranslationController::class);
 
 require __DIR__ . '/auth.php';
