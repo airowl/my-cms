@@ -19,9 +19,14 @@ export default [
         icon: mdiMonitor,
         label: "Dashboard",
     },
+    //{
+    //    route: "translations",
+    //    label: "Translations",
+    //    icon: mdiTable,
+    //},
     {
-        route: "translations",
-        label: "Translations",
+        route: "posts",
+        label: "Articles",
         icon: mdiTable,
     },
     {

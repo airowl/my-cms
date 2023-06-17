@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocalTranslationController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,13 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/translations', 'update')->name('translations.update');
         Route::post('/translations', 'store')->name('translations.create');
         Route::delete('/translations/{translation}', 'destroy');
+    });
+
+    Route::controller(PostController::class)->group(function () {
+        Route::get('/posts', 'index')->name('posts');
+        //Route::put('/translations', 'update')->name('translations.update');
+        //Route::post('/translations', 'store')->name('translations.create');
+        //Route::delete('/translations/{translation}', 'destroy');
     });
 
     //Route::resource('/translations', LocalTranslationController::class)->name('index', 'translations');

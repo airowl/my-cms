@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Inertia\Inertia;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -13,7 +15,22 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Post::all();
+        $posts = null;
+        foreach ($datas as $data) {
+            $posts[] = $data->getSummury();
+        }
+        //var_dump($posts);
+        //exit;
+        return Inertia::render('PostsView', [
+            'posts' => $posts
+        ]);
+    }
+
+    public function publishPost(Request $request)
+    {
+        var_dump();
+
     }
 
     /**

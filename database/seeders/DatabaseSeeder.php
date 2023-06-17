@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+
+        $faker = Factory::create();
 
         $roles = [
             [
@@ -128,13 +131,17 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        //for ($i=0; $i < 20; $i++) {
-        //    DB::table('posts')->insert([
-        //        'name' => Str::random(10),
-        //        'email' => Str::random(10).'@gmail.com',
-        //        'password' => Hash::make('password'),
-        //    ]);
-        //}
-
+        for ($i = 0; $i < 20; $i++) {
+            $title = $faker->word();
+            DB::table('posts')->insert([
+                'title' => $title,
+                'metaTitle' => strtolower($title),
+                'slug' => $title,
+                'published' => 0,
+                'publishedAt' => null,
+                'content' => '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>',
+                'user_id' => 1,
+            ]);
+        }
     }
 }
