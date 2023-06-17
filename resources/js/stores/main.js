@@ -37,15 +37,6 @@ export const useMainStore = defineStore("main", {
         },
     },
     actions: {
-        resetUser(){
-            this.firstName = null;
-            this.middleName = null;
-            this.lastName = null;
-            this.email = null;
-            this.avatar = null;
-            this.lastLogin = null;
-            this.intro = null;
-        },
         setUser(payload) {
             if (payload.firstName) {
                 this.firstName = payload.firstName;
@@ -71,9 +62,8 @@ export const useMainStore = defineStore("main", {
         },
 
         getCurrentUser() {
-            this.resetUser;
             const user = usePage().props.auth.user;
-            //console.log(this.middleName);
+            console.log(user);
             this.setUser(user);
         },
 

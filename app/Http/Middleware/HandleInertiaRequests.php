@@ -33,6 +33,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
+        var_dump(auth()->user()->getAccessLevel);
+        exit;
         $passDataUser = null;
         if(isset($user)){
             $passDataUser = $user->getSummery();
