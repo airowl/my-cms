@@ -51,6 +51,7 @@ const passwordForm = useForm({
 });
 
 const submitProfile = () => {
+    console.log(profileForm);
     profileForm.post("/profile", {
         preserveScroll: true,
         onSuccess: () => {

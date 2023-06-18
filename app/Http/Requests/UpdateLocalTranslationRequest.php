@@ -11,7 +11,7 @@ class UpdateLocalTranslationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,9 +22,7 @@ class UpdateLocalTranslationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['int', 'max:255'],
-            'languageCode' => ['string', 'max:255'],
-            'translation' => ['string', 'max:255'],
+            //
         ];
     }
 }

@@ -86,45 +86,28 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        $languages = array(
-            [
-                'languageCode' => 'it',
-            ],
-            [
-                'languageCode' => 'en',
-            ],
-        );
-
-        foreach ($languages as $key => $value) {
-            DB::table('local_languages')->insert([
-                'languageCode' => $value['languageCode'],
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-        }
-
         $translations = array(
             [
-                'languageCode' => 1,
+                'languageCode' => 'it',
                 'translation' => 'ciao',
             ],
             [
-                'languageCode' => 2,
+                'languageCode' => 'en',
                 'translation' => 'hello',
             ],
             [
-                'languageCode' => 1,
-                'translation' => 'come stai?',
+                'languageCode' => 'en',
+                'translation' => 'how are you?',
             ],
             [
-                'languageCode' => 2,
-                'translation' => 'how are you?',
+                'languageCode' => 'it',
+                'translation' => 'come stai?',
             ],
         );
 
         foreach ($translations as $key => $value) {
             DB::table('local_translations')->insert([
-                'local_language_id' => $value['languageCode'],
+                'languageCode' => $value['languageCode'],
                 'translation' => $value['translation'],
                 'created_at' => now(),
                 'updated_at' => now()

@@ -11,7 +11,7 @@ class StoreLocalTranslationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,8 +22,7 @@ class StoreLocalTranslationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'languageCode' => ['string', 'max:255'],
-            'translation' => ['string', 'max:255'],
+            //
         ];
     }
 }
