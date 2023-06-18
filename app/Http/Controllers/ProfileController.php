@@ -48,8 +48,6 @@ class ProfileController extends Controller
     {
         $user = User::find($request->user()->id);
         $currentRequest = (object)$request->validated();
-        //var_dump($currentRequest->firstName);
-        //exit;
         $user->firstName = $currentRequest->firstName;
         $user->middleName = $currentRequest->middleName;
         $user->lastName = $currentRequest->lastName;
