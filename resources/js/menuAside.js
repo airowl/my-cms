@@ -25,14 +25,11 @@ export default [
     //    icon: mdiTable,
     //},
     {
-<<<<<<< HEAD
         route: "posts",
         label: "Articles",
         icon: mdiTable,
     },
     {
-=======
->>>>>>> parent of dc0cd95 (fix languages cruds)
         route: "tables",
         label: "Tables",
         icon: mdiTable,

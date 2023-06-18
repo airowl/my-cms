@@ -35,20 +35,18 @@ Route::get('/tables', function () {
     return Inertia::render('TablesView');
 })->middleware(['auth', 'checkAccessLv:100'])->name('tables');
 
-<<<<<<< HEAD
-    Route::controller(PostController::class)->group(function () {
-        Route::get('/posts', 'index')->name('posts');
-        //Route::put('/translations', 'update')->name('translations.update');
-        //Route::post('/translations', 'store')->name('translations.create');
-        //Route::delete('/translations/{translation}', 'destroy');
-    });
+//Route::controller(PostController::class)->group(function () {
+//    Route::get('/posts', 'index')->name('posts');
+//    //Route::put('/translations', 'update')->name('translations.update');
+//    //Route::post('/translations', 'store')->name('translations.create');
+//    //Route::delete('/translations/{translation}', 'destroy');
+//});
 
-    //Route::resource('/translations', LocalTranslationController::class)->name('index', 'translations');
-=======
+//Route::resource('/translations', LocalTranslationController::class)->name('index', 'translations');
+
 Route::get('/ui', function () {
     return Inertia::render('UiView');
 })->middleware(['auth', 'verified'])->name('ui');
->>>>>>> parent of dc0cd95 (fix languages cruds)
 
 Route::get('/responsive', function () {
     return Inertia::render('ResponsiveView');
