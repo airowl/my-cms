@@ -24,11 +24,11 @@ export default [
     //    label: "Translations",
     //    icon: mdiTable,
     //},
-    {
-        route: "posts",
-        label: "Articles",
-        icon: mdiTable,
-    },
+    //{
+    //    route: "posts",
+    //    label: "Articles",
+    //    icon: mdiTable,
+    //},
     {
         route: "tables",
         label: "Tables",
