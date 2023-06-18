@@ -58,11 +58,6 @@ class ProfileController extends Controller
         $file = $request->avatar;
         if (isset($file)) {
             $nameFile = $user->firstName . date('Yms') . Str::random(5) . '.' . $file->extension();
-            //$path = Storage::putFileAs(
-            //    'avatars',
-            //    $request->file('avatar'),
-            //    $nameFile
-            //);
             $path = $file->storeAs(
                 'public/avatars',
                 $nameFile
@@ -71,8 +66,6 @@ class ProfileController extends Controller
                 $user->avatar = $path;
             }
         }
-        //$user->firstName = $current
-        //$request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

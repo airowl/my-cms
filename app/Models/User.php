@@ -62,7 +62,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function getAccessLevel()
+    public function getAccessLevel(): string
     {
         return $this->role->accessLevel;
     }
