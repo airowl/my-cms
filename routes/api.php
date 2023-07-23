@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::middleware('client.credentials')->group(function () {
+
+//    Route::prefix('blog')->group(function(){
+//        Route::get('/', [PostController::class, 'index'])->name('posts');
+//    });
+//});

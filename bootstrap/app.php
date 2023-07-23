@@ -41,6 +41,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class ,
+    'client.credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class ,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

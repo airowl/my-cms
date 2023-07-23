@@ -114,17 +114,17 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i = 0; $i < 20; $i++) {
-            $title = $faker->word();
-            DB::table('posts')->insert([
-                'title' => $title,
-                'metaTitle' => strtolower($title),
-                'slug' => $title,
-                'published' => 0,
-                'publishedAt' => null,
-                'content' => '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>',
-                'user_id' => 1,
-            ]);
-        }
+        //for ($i = 0; $i < 20; $i++) {
+        //    $title = $faker->word();
+        //    DB::table('posts')->insert([
+        //        'title' => $title,
+        //        'metaTitle' => strtolower($title),
+        //        'slug' => $title,
+        //        'published' => 0,
+        //        'publishedAt' => null,
+        //        'content' => '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>' . '<p>' . $faker->paragraph(4) . '</p>',
+        //        'user_id' => 1,
+        //    ]);
+        //}
     }
 }
